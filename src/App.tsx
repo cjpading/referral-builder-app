@@ -5,14 +5,12 @@ import "./App.css";
 
 function App() {
   return (
-    <Stack
-      sx={{
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        flexDirection: "column",
-      }}
-    >
-      <Grid spacing={2} container>
+    <Stack>
+      <Grid
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        container
+      >
         <ReferralBuilderForm />
         <ReferralBuilderList />
       </Grid>

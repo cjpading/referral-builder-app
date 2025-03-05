@@ -1,4 +1,6 @@
 import {
+  Box,
+  Grid2 as Grid,
   Paper,
   Table,
   TableBody,
@@ -6,51 +8,122 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
   styled,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { referralData } from "../../data/referralData.js";
+import useScreenSize from "../../hooks/useScreenSize.js";
 
 const StyledTableHead = styled(TableHead)({
   textTransform: "uppercase",
 });
 
+const StyledTypography = styled(Typography)({
+  fontWeight: "bold",
+});
+
+const StyledBox = styled(Box)({
+  paddingBottom: 16,
+  paddingTop: 16,
+});
+
 const ReferralBuilderList = () => {
-  return (
-    <Paper sx={{ padding: 4, justifyContent: "flex-start" }} elevation={3}>
-      <TableContainer component={Paper}>
-        <Table>
-          <StyledTableHead>
-            <TableRow>
-              <TableCell>Given Name</TableCell>
-              <TableCell>Surname</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </StyledTableHead>
-          <TableBody>
-            {referralData.map((data) => (
-              <TableRow
-                key={data.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{data.givenName}</TableCell>
-                <TableCell>{data.surName}</TableCell>
-                <TableCell>{data.email}</TableCell>
-                <TableCell>{data.phone}</TableCell>
+  const { isMediumScreen } = useScreenSize();
+
+  let content;
+
+  if (isMediumScreen) {
+    content = (
+      <Paper
+        sx={{ width: "100%", padding: 4, justifyContent: "flex-start" }}
+        elevation={3}
+      >
+        <Typography
+          sx={{ marginBottom: "20px", fontWeight: "bold" }}
+          variant="h5"
+        >
+          Referral List
+        </Typography>
+        {referralData.map((data) => (
+          <StyledBox>
+            <Grid spacing={2} container gap={0.5}>
+              <StyledTypography variant="body2">Given Name</StyledTypography>
+              <Typography variant="body2">{data.givenName}</Typography>
+            </Grid>
+            <Grid spacing={2} container gap={0.5}>
+              <StyledTypography variant="body2">Surname</StyledTypography>
+              <Typography variant="body2">{data.surName}</Typography>
+            </Grid>
+            <Grid spacing={2} container gap={0.5}>
+              <StyledTypography variant="body2">Email</StyledTypography>
+              <Typography variant="body2">{data.email}</Typography>
+            </Grid>
+            <Grid spacing={2} container gap={0.5}>
+              <StyledTypography variant="body2">Phone</StyledTypography>
+              <Typography variant="body2">{data.phone}</Typography>
+            </Grid>
+          </StyledBox>
+        ))}
+      </Paper>
+    );
+  } else {
+    content = (
+      <Paper sx={{ padding: 4, justifyContent: "flex-start" }} elevation={3}>
+        <TableContainer component={Paper}>
+          <Table>
+            <StyledTableHead>
+              <TableRow>
                 <TableCell>
-                  <EditIcon />
-                  <DeleteIcon />
+                  <Typography variant="body2">Given Name</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2">Surname</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2">Email</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2">Phone</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography variant="body2">Actions</Typography>
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Paper>
-  );
+            </StyledTableHead>
+            <TableBody>
+              {referralData.map((data) => (
+                <TableRow
+                  key={data.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>
+                    <Typography variant="body2">{data.givenName}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2">{data.surName}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2">{data.email}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Typography variant="body2">{data.phone}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <EditIcon />
+                    <DeleteIcon />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    );
+  }
+
+  return content;
 };
 
 export default ReferralBuilderList;
