@@ -1,5 +1,5 @@
 import { Button, Grid2 as Grid, Paper, Typography } from "@mui/material";
-import TextboxComponent from "../../components/Textbox";
+import TextboxComponent from "../Textbox";
 
 const ReferralBuilderForm = () => {
   return (

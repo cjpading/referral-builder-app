@@ -1,6 +1,6 @@
 import { Grid2 as Grid, Stack } from "@mui/material";
-import ReferralBuilderForm from "./pages/ReferralBuilder/ReferralBuilderForm";
-import ReferralBuilderList from "./pages/ReferralBuilder/ReferralBuilderList";
+import ReferralBuilderForm from "./components/ReferralBuilder/ReferralBuilderForm";
+import ReferralBuilderList from "./components/ReferralBuilder/ReferralBuilderList";
 import "./App.css";
 
 function App() {
