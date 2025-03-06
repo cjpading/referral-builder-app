@@ -34,7 +34,10 @@ const TextboxComponent: React.FC<TextboxProps> = ({
               sx={{ height: 45, margin: 0 }}
               fullWidth
               value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => {
+                field.onChange(e);
+                setValue(e.target.value);
+              }}
             />
             {error ? (
               <Typography sx={{ color: "red", marginTop: 2 }} variant="body2">

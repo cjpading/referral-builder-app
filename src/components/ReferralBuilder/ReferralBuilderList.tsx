@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { getReferralApi } from "../../services/ReferralBuilderFormHttp.js";
 import { useReferralList } from "../../hooks/useReferralList.js";
 import useScreenSize from "../../hooks/useScreenSize.js";
+import ReferralBuilder from "../../types/request/ReferralBuilder.js";
 
 const StyledTableHead = styled(TableHead)({
   textTransform: "uppercase",
@@ -40,7 +41,10 @@ const ReferralBuilderList = () => {
   useEffect(() => {
     const getReferralDataList = async () => {
       const referralList = await getReferralApi();
-      setReferralDataList(referralList.data);
+      const responseData: ReferralBuilder[] = referralList.data;
+      if (responseData.length != referralDataList.length) {
+        setReferralDataList(responseData);
+      }
     };
     getReferralDataList();
   }, [referralDataList]);
