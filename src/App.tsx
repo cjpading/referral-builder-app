@@ -9,12 +9,16 @@ function App() {
     <ReferralBuilderProvider>
       <Stack>
         <Grid
-          spacing={{ xs: 2, md: 3 }}
+          spacing={{ xs: 2, md: 2 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
           container
         >
-          <ReferralBuilderForm />
-          <ReferralBuilderList />
+          <Grid size={{ xs: 3, sm: 7, md: 6 }}>
+            <ReferralBuilderForm />
+          </Grid>
+          <Grid size={{ xs: 3, sm: 7, md: 6 }}>
+            <ReferralBuilderList />
+          </Grid>
         </Grid>
       </Stack>
     </ReferralBuilderProvider>

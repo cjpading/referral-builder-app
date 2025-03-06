@@ -44,6 +44,7 @@ const ReferralBuilderList = () => {
   }, [referralDataList]);
 
   let content;
+  const hasReferralData = referralDataList.length > 0;
 
   if (isMediumScreen) {
     content = (
@@ -57,26 +58,32 @@ const ReferralBuilderList = () => {
         >
           Referral List
         </Typography>
-        {referralDataList.map((data) => (
+        {hasReferralData ? (
+          referralDataList.map((data) => (
+            <StyledBox>
+              <Grid spacing={2} container gap={0.5}>
+                <StyledTypography variant="body2">Given Name</StyledTypography>
+                <Typography variant="body2">{data.givenName}</Typography>
+              </Grid>
+              <Grid spacing={2} container gap={0.5}>
+                <StyledTypography variant="body2">Surname</StyledTypography>
+                <Typography variant="body2">{data.surName}</Typography>
+              </Grid>
+              <Grid spacing={2} container gap={0.5}>
+                <StyledTypography variant="body2">Email</StyledTypography>
+                <Typography variant="body2">{data.email}</Typography>
+              </Grid>
+              <Grid spacing={2} container gap={0.5}>
+                <StyledTypography variant="body2">Phone</StyledTypography>
+                <Typography variant="body2">{data.phone}</Typography>
+              </Grid>
+            </StyledBox>
+          ))
+        ) : (
           <StyledBox>
-            <Grid spacing={2} container gap={0.5}>
-              <StyledTypography variant="body2">Given Name</StyledTypography>
-              <Typography variant="body2">{data.givenName}</Typography>
-            </Grid>
-            <Grid spacing={2} container gap={0.5}>
-              <StyledTypography variant="body2">Surname</StyledTypography>
-              <Typography variant="body2">{data.surName}</Typography>
-            </Grid>
-            <Grid spacing={2} container gap={0.5}>
-              <StyledTypography variant="body2">Email</StyledTypography>
-              <Typography variant="body2">{data.email}</Typography>
-            </Grid>
-            <Grid spacing={2} container gap={0.5}>
-              <StyledTypography variant="body2">Phone</StyledTypography>
-              <Typography variant="body2">{data.phone}</Typography>
-            </Grid>
+            <Typography variant="h6">No data found.</Typography>
           </StyledBox>
-        ))}
+        )}
       </Paper>
     );
   } else {
@@ -87,46 +94,58 @@ const ReferralBuilderList = () => {
             <StyledTableHead>
               <TableRow>
                 <TableCell>
-                  <Typography variant="body2">Given Name</Typography>
+                  <StyledTypography variant="body2">
+                    Given Name
+                  </StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">Surname</Typography>
+                  <StyledTypography variant="body2">Surname</StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">Email</Typography>
+                  <StyledTypography variant="body2">Email</StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">Phone</Typography>
+                  <StyledTypography variant="body2">Phone</StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">Actions</Typography>
+                  <StyledTypography variant="body2">Actions</StyledTypography>
                 </TableCell>
               </TableRow>
             </StyledTableHead>
             <TableBody>
-              {referralDataList.map((data) => (
+              {hasReferralData ? (
+                referralDataList.map((data) => (
+                  <TableRow
+                    key={data.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>
+                      <Typography variant="body2">{data.givenName}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{data.surName}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{data.email}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">{data.phone}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <EditIcon />
+                      <DeleteIcon />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
                 <TableRow
-                  key={data.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell>
-                    <Typography variant="body2">{data.givenName}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{data.surName}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{data.email}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">{data.phone}</Typography>
-                  </TableCell>
-                  <TableCell>
-                    <EditIcon />
-                    <DeleteIcon />
+                  <TableCell colSpan={5}>
+                    <Typography variant="body2">No data found.</Typography>
                   </TableCell>
                 </TableRow>
-              ))}
+              )}
             </TableBody>
           </Table>
         </TableContainer>

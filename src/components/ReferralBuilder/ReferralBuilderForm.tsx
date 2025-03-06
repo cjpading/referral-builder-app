@@ -6,6 +6,7 @@ import useScreenSize from "../../hooks/useScreenSize";
 import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
 import { useState } from "react";
 import AlertMessage from "../AlertMessage";
+import { SeverityType } from "../../types/props/AlertMessageProps";
 
 const ReferralBuilderForm = () => {
   const { isMediumScreen } = useScreenSize();
@@ -13,6 +14,8 @@ const ReferralBuilderForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [severity, setSeverity] = useState<SeverityType>("success");
 
   const handleAlertClose = () => {
     setIsAlertOpen(false);
@@ -20,9 +23,19 @@ const ReferralBuilderForm = () => {
 
   const handleCreateReferral = (data: any) => {
     setIsLoading(true);
-    const timer = setTimeout(() => {
+
+    const timer = setTimeout(async () => {
       setIsLoading(false);
-      createReferralApi(data);
+
+      const response = await createReferralApi(data);
+      if (!!response) {
+        setMessage("Creating referral successful");
+        setSeverity("success");
+      } else {
+        setMessage("Creating referral has encountered an error");
+        setSeverity("error");
+      }
+
       setIsAlertOpen(true);
     }, 2000);
 
@@ -34,8 +47,8 @@ const ReferralBuilderForm = () => {
       <AlertMessage
         isOpen={isAlertOpen}
         handleClose={handleAlertClose}
-        message={"Creating referral successful"}
-        severity="success"
+        message={message}
+        severity={severity}
       />
       <Paper
         sx={{
@@ -63,36 +76,44 @@ const ReferralBuilderForm = () => {
             Personal Details
           </Typography>
           <Grid spacing={2} container>
-            <TextboxComponent
-              control={control}
-              fieldName="givenName"
-              fieldLabel="Given Name"
-              type="text"
-              rules={{ required: "Given Name is required" }}
-            />
-            <TextboxComponent
-              control={control}
-              fieldName="surName"
-              fieldLabel="Surname"
-              type="text"
-              rules={{ required: "Surname is required" }}
-            />
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="givenName"
+                fieldLabel="Given Name"
+                type="text"
+                rules={{ required: "Given Name is required" }}
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="surName"
+                fieldLabel="Surname"
+                type="text"
+                rules={{ required: "Surname is required" }}
+              />
+            </Grid>
           </Grid>
           <Grid spacing={2} container>
-            <TextboxComponent
-              control={control}
-              fieldName="email"
-              fieldLabel="Email"
-              type="email"
-              rules={{ required: "Email is required" }}
-            />
-            <TextboxComponent
-              control={control}
-              fieldName="phone"
-              fieldLabel="Phone"
-              type="text"
-              rules={{ required: "Phone is required" }}
-            />
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="email"
+                fieldLabel="Email"
+                type="email"
+                rules={{ required: "Email is required" }}
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="phone"
+                fieldLabel="Phone"
+                type="text"
+                rules={{ required: "Phone is required" }}
+              />
+            </Grid>
           </Grid>
           <Typography
             sx={{
@@ -106,46 +127,58 @@ const ReferralBuilderForm = () => {
             Address
           </Typography>
           <Grid spacing={2} container>
-            <TextboxComponent
-              control={control}
-              fieldName="homeName"
-              fieldLabel="Home Name OR #"
-              type="text"
-            />
-            <TextboxComponent
-              control={control}
-              fieldName="street"
-              fieldLabel="Street"
-              type="text"
-            />
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="homeName"
+                fieldLabel="Home Name OR #"
+                type="text"
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="street"
+                fieldLabel="Street"
+                type="text"
+              />
+            </Grid>
           </Grid>
           <Grid spacing={2} container>
-            <TextboxComponent
-              control={control}
-              fieldName="suburb"
-              fieldLabel="Suburb"
-              type="text"
-            />
-            <TextboxComponent
-              control={control}
-              fieldName="state"
-              fieldLabel="State"
-              type="text"
-            />
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="suburb"
+                fieldLabel="Suburb"
+                type="text"
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="state"
+                fieldLabel="State"
+                type="text"
+              />
+            </Grid>
           </Grid>
           <Grid spacing={2} container>
-            <TextboxComponent
-              control={control}
-              fieldName="postcode"
-              fieldLabel="Postcode"
-              type="text"
-            />
-            <TextboxComponent
-              control={control}
-              fieldName="country"
-              fieldLabel="Country"
-              type="text"
-            />
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="postcode"
+                fieldLabel="Postcode"
+                type="text"
+              />
+            </Grid>
+            <Grid size={6}>
+              <TextboxComponent
+                control={control}
+                fieldName="country"
+                fieldLabel="Country"
+                type="text"
+              />
+            </Grid>
           </Grid>
           <Grid sx={{ paddingTop: 4 }} spacing={2} container>
             <Grid size={6}>
