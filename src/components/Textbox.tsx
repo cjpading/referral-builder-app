@@ -1,7 +1,7 @@
+import { useState } from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import { Controller } from "react-hook-form";
 import TextboxProps from "../types/props/TextboxProps";
-import { useState } from "react";
 
 const TextboxComponent: React.FC<TextboxProps> = ({
   control,
@@ -20,6 +20,7 @@ const TextboxComponent: React.FC<TextboxProps> = ({
         render={({ field, fieldState: { error } }) => (
           <Box>
             <Typography
+              className="grey"
               sx={{ paddingTop: 2, textTransform: "uppercase" }}
               variant="body2"
             >

@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import {
   Box,
+  Button,
   Grid2 as Grid,
   Paper,
   Table,
@@ -14,7 +16,6 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { getReferralApi } from "../../services/ReferralBuilderFormHttp.js";
-import { useEffect } from "react";
 import { useReferralList } from "../../hooks/useReferralList.js";
 import useScreenSize from "../../hooks/useScreenSize.js";
 
@@ -24,6 +25,7 @@ const StyledTableHead = styled(TableHead)({
 
 const StyledTypography = styled(Typography)({
   fontWeight: "bold",
+  color: "grey",
 });
 
 const StyledBox = styled(Box)({
@@ -63,19 +65,58 @@ const ReferralBuilderList = () => {
             <StyledBox>
               <Grid spacing={2} container gap={0.5}>
                 <StyledTypography variant="body2">Given Name</StyledTypography>
-                <Typography variant="body2">{data.givenName}</Typography>
+                <Typography className="grey" variant="body2">
+                  {data.givenName}
+                </Typography>
               </Grid>
               <Grid spacing={2} container gap={0.5}>
                 <StyledTypography variant="body2">Surname</StyledTypography>
-                <Typography variant="body2">{data.surName}</Typography>
+                <Typography className="grey" variant="body2">
+                  {data.surName}
+                </Typography>
               </Grid>
               <Grid spacing={2} container gap={0.5}>
                 <StyledTypography variant="body2">Email</StyledTypography>
-                <Typography variant="body2">{data.email}</Typography>
+                <Typography className="grey" variant="body2">
+                  {data.email}
+                </Typography>
               </Grid>
               <Grid spacing={2} container gap={0.5}>
                 <StyledTypography variant="body2">Phone</StyledTypography>
-                <Typography variant="body2">{data.phone}</Typography>
+                <Typography className="grey" variant="body2">
+                  {data.phone}
+                </Typography>
+              </Grid>
+              <Grid spacing={2} container gap={0.5}>
+                <Grid size={6}>
+                  <Button
+                    sx={{ borderColor: "black" }}
+                    fullWidth
+                    variant="outlined"
+                  >
+                    <Typography
+                      sx={{ color: "black", padding: "2px" }}
+                      variant="body2"
+                    >
+                      Edit
+                    </Typography>
+                  </Button>
+                </Grid>
+                <Grid size={6}>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="error"
+                  >
+                    <Typography
+                      sx={{ color: "white", padding: "2px" }}
+                      variant="body2"
+                    >
+                      Delete
+                    </Typography>
+                  </Button>
+                </Grid>
               </Grid>
             </StyledBox>
           ))
@@ -94,21 +135,29 @@ const ReferralBuilderList = () => {
             <StyledTableHead>
               <TableRow>
                 <TableCell>
-                  <StyledTypography variant="body2">
+                  <StyledTypography className="grey" variant="body2">
                     Given Name
                   </StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <StyledTypography variant="body2">Surname</StyledTypography>
+                  <StyledTypography className="grey" variant="body2">
+                    Surname
+                  </StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <StyledTypography variant="body2">Email</StyledTypography>
+                  <StyledTypography className="grey" variant="body2">
+                    Email
+                  </StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <StyledTypography variant="body2">Phone</StyledTypography>
+                  <StyledTypography className="grey" variant="body2">
+                    Phone
+                  </StyledTypography>
                 </TableCell>
                 <TableCell>
-                  <StyledTypography variant="body2">Actions</StyledTypography>
+                  <StyledTypography className="grey" variant="body2">
+                    Actions
+                  </StyledTypography>
                 </TableCell>
               </TableRow>
             </StyledTableHead>
@@ -120,20 +169,28 @@ const ReferralBuilderList = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>
-                      <Typography variant="body2">{data.givenName}</Typography>
+                      <Typography className="grey" variant="body2">
+                        {data.givenName}
+                      </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{data.surName}</Typography>
+                      <Typography className="grey" variant="body2">
+                        {data.surName}
+                      </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{data.email}</Typography>
+                      <Typography className="grey" variant="body2">
+                        {data.email}
+                      </Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2">{data.phone}</Typography>
+                      <Typography className="grey" variant="body2">
+                        {data.phone}
+                      </Typography>
                     </TableCell>
-                    <TableCell>
-                      <EditIcon />
-                      <DeleteIcon />
+                    <TableCell className="grey">
+                      <EditIcon sx={{ color: "grey" }} />
+                      <DeleteIcon sx={{ color: "grey" }} />
                     </TableCell>
                   </TableRow>
                 ))

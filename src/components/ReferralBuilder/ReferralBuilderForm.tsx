@@ -1,18 +1,18 @@
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import useScreenSize from "../../hooks/useScreenSize";
 import { Box, Button, Grid2 as Grid, Paper, Typography } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useForm } from "react-hook-form";
 import TextboxComponent from "../Textbox";
-import useScreenSize from "../../hooks/useScreenSize";
-import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
-import { useState } from "react";
 import AlertMessage from "../AlertMessage";
+import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
 import { SeverityType } from "../../types/props/AlertMessageProps";
 
 const ReferralBuilderForm = () => {
   const { isMediumScreen } = useScreenSize();
   const { control, handleSubmit } = useForm();
-  const [isLoading, setIsLoading] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [severity, setSeverity] = useState<SeverityType>("success");
@@ -26,7 +26,6 @@ const ReferralBuilderForm = () => {
 
     const timer = setTimeout(async () => {
       setIsLoading(false);
-
       const response = await createReferralApi(data);
       if (!!response) {
         setMessage("Creating referral successful");
@@ -35,7 +34,6 @@ const ReferralBuilderForm = () => {
         setMessage("Creating referral has encountered an error");
         setSeverity("error");
       }
-
       setIsAlertOpen(true);
     }, 2000);
 
@@ -66,9 +64,9 @@ const ReferralBuilderForm = () => {
         </Typography>
         <Box component="form" onSubmit={handleSubmit(handleCreateReferral)}>
           <Typography
+            className="grey"
             sx={{
               borderBottom: 1,
-              borderBottomColor: "grey",
               textTransform: "uppercase",
             }}
             variant="body1"
@@ -116,10 +114,10 @@ const ReferralBuilderForm = () => {
             </Grid>
           </Grid>
           <Typography
+            className="grey"
             sx={{
               paddingTop: 4,
               borderBottom: 1,
-              borderBottomColor: "grey",
               textTransform: "uppercase",
             }}
             variant="body1"
@@ -182,8 +180,15 @@ const ReferralBuilderForm = () => {
           </Grid>
           <Grid sx={{ paddingTop: 4 }} spacing={2} container>
             <Grid size={6}>
-              <Button fullWidth variant="outlined">
-                <Typography sx={{ padding: "2px" }} variant="body2">
+              <Button
+                sx={{ borderColor: "black" }}
+                fullWidth
+                variant="outlined"
+              >
+                <Typography
+                  sx={{ color: "black", padding: "2px" }}
+                  variant="body2"
+                >
                   Upload Avatar
                 </Typography>
               </Button>
@@ -198,7 +203,10 @@ const ReferralBuilderForm = () => {
                 {isLoading ? (
                   <CircularProgress color="inherit" size={"24px"} />
                 ) : (
-                  <Typography sx={{ padding: "2px" }} variant="body2">
+                  <Typography
+                    sx={{ color: "white", padding: "2px" }}
+                    variant="body2"
+                  >
                     Create Referral
                   </Typography>
                 )}
