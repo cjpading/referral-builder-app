@@ -13,10 +13,10 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import useScreenSize from "../../hooks/useScreenSize.js";
-import { useEffect, useState } from "react";
 import { getReferralApi } from "../../services/ReferralBuilderFormHttp.js";
-import ReferralBuilder from "../../types/request/ReferralBuilder.js";
+import { useEffect } from "react";
+import { useReferralList } from "../../hooks/useReferralList.js";
+import useScreenSize from "../../hooks/useScreenSize.js";
 
 const StyledTableHead = styled(TableHead)({
   textTransform: "uppercase",
@@ -33,9 +33,7 @@ const StyledBox = styled(Box)({
 
 const ReferralBuilderList = () => {
   const { isMediumScreen } = useScreenSize();
-  const [referralDataList, setReferralDataList] = useState<ReferralBuilder[]>(
-    []
-  );
+  const { referralDataList, setReferralDataList } = useReferralList();
 
   useEffect(() => {
     const getReferralDataList = async () => {
@@ -43,7 +41,7 @@ const ReferralBuilderList = () => {
       setReferralDataList(referralList.data);
     };
     getReferralDataList();
-  }, []);
+  }, [referralDataList]);
 
   let content;
 
