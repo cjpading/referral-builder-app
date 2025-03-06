@@ -1,14 +1,24 @@
 import { Box, Button, Grid2 as Grid, Paper, Typography } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useForm } from "react-hook-form";
 import TextboxComponent from "../Textbox";
 import useScreenSize from "../../hooks/useScreenSize";
 import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
+import { useState } from "react";
 
 const ReferralBuilderForm = () => {
   const { isMediumScreen } = useScreenSize();
   const { control, handleSubmit } = useForm();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleCreateReferral = (data: any) => {
-    createReferralApi(data);
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      createReferralApi(data);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   };
 
   return (
@@ -125,12 +135,20 @@ const ReferralBuilderForm = () => {
         <Grid sx={{ paddingTop: 4 }} spacing={2} container>
           <Grid size={6}>
             <Button fullWidth variant="outlined">
-              Upload Avatar
+              <Typography sx={{ padding: "2px" }} variant="body2">
+                Upload Avatar
+              </Typography>
             </Button>
           </Grid>
           <Grid size={6}>
             <Button type="submit" fullWidth variant="contained" color="success">
-              Create Referral
+              {isLoading ? (
+                <CircularProgress color="inherit" size={"24px"} />
+              ) : (
+                <Typography sx={{ padding: "2px" }} variant="body2">
+                  Create Referral
+                </Typography>
+              )}
             </Button>
           </Grid>
         </Grid>
