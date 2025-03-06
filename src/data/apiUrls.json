@@ -1,0 +1,4 @@
+{
+  "createReferralApi": "/referral-builder/create-referral",
+  "getReferralApi": "/referral-builder/get-referral-list"
+}

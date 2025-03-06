@@ -1,13 +1,6 @@
 import { Box, TextField, Typography } from "@mui/material";
-import { Controller, Control } from "react-hook-form";
-
-interface TextboxProps {
-  control: Control<any>;
-  fieldName: string;
-  fieldLabel: string;
-  type: "text" | "email";
-  rules?: object;
-}
+import { Controller } from "react-hook-form";
+import TextboxProps from "../types/props/TextboxProps";
 
 const TextboxComponent: React.FC<TextboxProps> = ({
   control,

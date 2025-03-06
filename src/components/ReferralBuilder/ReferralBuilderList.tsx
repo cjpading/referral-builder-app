@@ -13,8 +13,10 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { referralData } from "../../data/referralData.js";
 import useScreenSize from "../../hooks/useScreenSize.js";
+import { useEffect, useState } from "react";
+import { getReferralApi } from "../../services/ReferralBuilderFormHttp.js";
+import ReferralBuilder from "../../types/request/ReferralBuilder.js";
 
 const StyledTableHead = styled(TableHead)({
   textTransform: "uppercase",
@@ -31,6 +33,17 @@ const StyledBox = styled(Box)({
 
 const ReferralBuilderList = () => {
   const { isMediumScreen } = useScreenSize();
+  const [referralDataList, setReferralDataList] = useState<ReferralBuilder[]>(
+    []
+  );
+
+  useEffect(() => {
+    const getReferralDataList = async () => {
+      const referralList = await getReferralApi();
+      setReferralDataList(referralList.data);
+    };
+    getReferralDataList();
+  }, []);
 
   let content;
 
@@ -46,7 +59,7 @@ const ReferralBuilderList = () => {
         >
           Referral List
         </Typography>
-        {referralData.map((data) => (
+        {referralDataList.map((data) => (
           <StyledBox>
             <Grid spacing={2} container gap={0.5}>
               <StyledTypography variant="body2">Given Name</StyledTypography>
@@ -93,7 +106,7 @@ const ReferralBuilderList = () => {
               </TableRow>
             </StyledTableHead>
             <TableBody>
-              {referralData.map((data) => (
+              {referralDataList.map((data) => (
                 <TableRow
                   key={data.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

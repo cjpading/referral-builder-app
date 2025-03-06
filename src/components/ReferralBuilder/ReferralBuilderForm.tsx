@@ -1,15 +1,25 @@
 import { Box, Button, Grid2 as Grid, Paper, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import TextboxComponent from "../Textbox";
+import useScreenSize from "../../hooks/useScreenSize";
+import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
 
 const ReferralBuilderForm = () => {
+  const { isMediumScreen } = useScreenSize();
   const { control, handleSubmit } = useForm();
   const handleCreateReferral = (data: any) => {
-    console.log("data", data);
+    createReferralApi(data);
   };
 
   return (
-    <Paper sx={{ padding: 4, justifyContent: "flex-start" }} elevation={3}>
+    <Paper
+      sx={{
+        width: isMediumScreen ? "100%" : {},
+        padding: 4,
+        justifyContent: "flex-start",
+      }}
+      elevation={3}
+    >
       <Typography
         sx={{ marginBottom: "30px", fontWeight: "bold" }}
         variant="h5"
@@ -76,14 +86,12 @@ const ReferralBuilderForm = () => {
             fieldName="homeName"
             fieldLabel="Home Name OR #"
             type="text"
-            rules={{ required: "Home Name OR # is required" }}
           />
           <TextboxComponent
             control={control}
             fieldName="street"
             fieldLabel="Street"
             type="text"
-            rules={{ required: "Street is required" }}
           />
         </Grid>
         <Grid spacing={2} container>
@@ -92,14 +100,12 @@ const ReferralBuilderForm = () => {
             fieldName="suburb"
             fieldLabel="Suburb"
             type="text"
-            rules={{ required: "Suburb Name is required" }}
           />
           <TextboxComponent
             control={control}
             fieldName="state"
             fieldLabel="State"
             type="text"
-            rules={{ required: "State is required" }}
           />
         </Grid>
         <Grid spacing={2} container>
@@ -108,14 +114,12 @@ const ReferralBuilderForm = () => {
             fieldName="postcode"
             fieldLabel="Postcode"
             type="text"
-            rules={{ required: "Postcode is required" }}
           />
           <TextboxComponent
             control={control}
             fieldName="country"
             fieldLabel="Country"
             type="text"
-            rules={{ required: "Country is required" }}
           />
         </Grid>
         <Grid sx={{ paddingTop: 4 }} spacing={2} container>
