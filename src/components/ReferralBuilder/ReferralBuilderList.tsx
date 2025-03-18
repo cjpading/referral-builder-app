@@ -36,7 +36,8 @@ const StyledBox = styled(Box)({
 
 const ReferralBuilderList = () => {
   const { isMediumScreen } = useScreenSize();
-  const { referralDataList, setReferralDataList } = useReferralList();
+  const { referralDataList, setReferralDataList, refreshReferralDataList } =
+    useReferralList();
 
   useEffect(() => {
     const getReferralDataList = async () => {
@@ -47,7 +48,7 @@ const ReferralBuilderList = () => {
       }
     };
     getReferralDataList();
-  }, [referralDataList]);
+  }, [refreshReferralDataList]);
 
   let content;
   const hasReferralData = referralDataList.length > 0;

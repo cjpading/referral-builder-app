@@ -4,6 +4,7 @@ import ReferralBuilder from "../types/request/ReferralBuilder";
 interface ReferralContext {
   referralDataList: ReferralBuilder[];
   setReferralDataList: (referralBuilder: ReferralBuilder[]) => void;
+  refreshReferralDataList: () => void;
 }
 
 interface ReferralProviderProps {
@@ -20,10 +21,15 @@ export const ReferralBuilderProvider: React.FC<ReferralProviderProps> = ({
   const [referralDataList, setReferralDataList] = useState<ReferralBuilder[]>(
     []
   );
+  const [isReferralCreated, setIsReferralCreated] = useState(false);
+
+  const refreshReferralDataList = () => {
+    setIsReferralCreated((prev) => !prev);
+  };
 
   return (
     <ReferralBuilderContext.Provider
-      value={{ referralDataList, setReferralDataList }}
+      value={{ referralDataList, setReferralDataList, refreshReferralDataList }}
     >
       {children}
     </ReferralBuilderContext.Provider>

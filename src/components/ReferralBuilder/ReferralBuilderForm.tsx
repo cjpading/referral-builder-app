@@ -7,9 +7,11 @@ import TextboxComponent from "../Textbox";
 import AlertMessage from "../AlertMessage";
 import { createReferralApi } from "../../services/ReferralBuilderFormHttp";
 import { SeverityType } from "../../types/props/AlertMessageProps";
+import { useReferralList } from "../../hooks/useReferralList";
 
 const ReferralBuilderForm = () => {
   const { isMediumScreen } = useScreenSize();
+  const { refreshReferralDataList } = useReferralList();
   const { control, handleSubmit } = useForm();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -30,6 +32,7 @@ const ReferralBuilderForm = () => {
       if (!!response) {
         setMessage("Creating referral successful");
         setSeverity("success");
+        refreshReferralDataList();
       } else {
         setMessage("Creating referral has encountered an error");
         setSeverity("error");
